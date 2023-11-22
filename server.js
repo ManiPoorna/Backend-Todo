@@ -18,6 +18,7 @@ const store = new mongoDbSession({
 const { isLoggedIn } = require("./middlewares/isLoggedIn");
 const todoModel = require("./models/todoModel");
 const rateLimit = require('./middlewares/rateLimiting');
+const cors = require("cors");
 
 // Middlewares
 app.use(express.json());
@@ -31,8 +32,10 @@ app.use(session({
   saveUninitialized: false,
   store: store // coming from connect-mongodb-session
 }))
+// middleare to add script
 app.use(express.static("public"));
-
+//middleware for cors
+app.use(cors());
 
 // MongoDB
 // Connecting to MongoDB
@@ -218,19 +221,25 @@ app.post("/logout_from_all", isLoggedIn, async (req, res) => {
 app.post("/add_todo", isLoggedIn, rateLimit, async (req, res) => {
   // getting todo input from Client
   const { todoitem } = req.body;
+  if (todoitem.length < 3) {
+    return res.send({
+      status: 401,
+      message: "Enter text of length greater than 3"
+    })
+  }
 
-  // creating object of todo to add to DB
-  const todoItem = new todoModel({
-    todo: todoitem,
-    userName: req.session.user.user_name
+    // creating object of todo to add to DB
+    const todoItem = new todoModel({
+      todo: todoitem,
+      userName: req.session.user.user_name
+    })
+    // adding to todos collection in DB
+    const todoDb = await todoItem.save();
+    return res.send({
+      status: 201,
+      message: "Todo Added"
+    })
   })
-  // adding to todos collection in DB
-  const todoDb = await todoItem.save();
-  return res.send({
-    status: 201,
-    message : "Todo Added"
-  })
-})
 
 // api to edit todo
 app.post("/edit_todo", isLoggedIn, async (req, res) => {
