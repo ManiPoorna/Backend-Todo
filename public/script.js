@@ -24,7 +24,7 @@ document.addEventListener("click", (e) => {
 
 // Function to get all todos loggedin user
 function getTodos() {
-  axios.get(`http://localhost:3000/pagination-dashboard?skip=${skip}`)
+  axios.get(`/pagination-dashboard?skip=${skip}`)
     .then((res) => {
       renderTodos(res.data.data);
     })
@@ -37,7 +37,7 @@ function getTodos() {
 function addTodo(e) {
   e.preventDefault();
   const newText = document.getElementById("new-text").value;
-  axios.post("http://localhost:3000/add_todo", { todoitem: newText })
+  axios.post("/add_todo", { todoitem: newText })
     .then((res) => {
       if (res.data.status !== 201) {
         alert(res.data.message);
@@ -76,7 +76,7 @@ function renderTodos(todos) {
 function editTodo(e) {
   const id = e.target.id;
   const newText = prompt("Enter new text: ");
-  axios.post("http://localhost:3000/edit_todo", {
+  axios.post("/edit_todo", {
     id,
     newText,
   }).then((res) => {
