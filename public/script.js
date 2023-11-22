@@ -26,7 +26,6 @@ document.addEventListener("click", (e) => {
 function getTodos() {
   axios.get(`http://localhost:3000/pagination-dashboard?skip=${skip}`)
     .then((res) => {
-      console.log(res.data);
       renderTodos(res.data.data);
     })
     .catch((err) => {
