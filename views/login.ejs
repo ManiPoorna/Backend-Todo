@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Todo login Form</title>
+  <style>
+    * {
+      margin: 0;
+    }
+
+    .login {
+      background-color: rgba(173, 216, 230, 0.301);
+      height: 100vh;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 18px;
+    }
+    form{
+      font-weight: bold;
+      /* display: flex;
+      flex-direction: column; */
+      row-gap: 10px;
+      width: 300px;
+      background-color: lightblue;
+      padding: 2rem 3rem;
+      border-radius: 0.5rem;
+    }
+    input{
+      border-radius: 5px;
+      padding: 0.5rem;
+      border: none;
+      width: 92%;
+    }
+    button{
+      padding: 0.5rem;
+      margin: 10px 0px 0px 0px;
+      width: 98%;
+      background-color: rgb(95, 95, 235);
+      border: 1px solid #2828;
+      color: #fff;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="login">
+
+    <form action="/login" method="post">
+    <h1>Login</h1>
+
+    <label for="loginId">Username or Email:</label>
+    <input type="text" name="loginId" required >
+    <br><br>
+
+    <label for="password">Password:</label>
+    <input type="password" name="password" required>
+    <br>
+
+    <button type="submit">Login</button>
+  </form>
+  </div>
+
+</body>
+
+</html>
